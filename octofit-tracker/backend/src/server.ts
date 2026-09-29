@@ -2,11 +2,15 @@ import cors from 'cors';
 import express, { type NextFunction, type Request, type Response } from 'express';
 import mongoose from 'mongoose';
 import './config/database.js';
-import { apiBaseUrl, frontendOrigin } from './config/urls.js';
+import { frontendOrigin } from './config/urls.js';
 import apiRouter from './routes/index.js';
 
 const app = express();
 const port = 8000;
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : `http://localhost:${port}`;
 
 app.use(cors({ origin: frontendOrigin }));
 app.use(express.json());
