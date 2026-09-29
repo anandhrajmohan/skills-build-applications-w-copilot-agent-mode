@@ -8,8 +8,9 @@ import apiRouter from './routes/index.js';
 const app = express();
 const port = 8000;
 const codespaceName = process.env.CODESPACE_NAME;
+const codespaceApiSuffix = '-8000.app.github.dev';
 const apiBaseUrl = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev`
+  ? `https://${codespaceName}${codespaceApiSuffix}`
   : `http://localhost:${port}`;
 
 app.use(cors({ origin: frontendOrigin }));
