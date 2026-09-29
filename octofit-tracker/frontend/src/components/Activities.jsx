@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import { fetchCollection } from '../api';
+import { API_BASE_URL, fetchCollection } from '../api';
+
+const activitiesEndpoint = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : `${API_BASE_URL}/api/activities/`;
 
 export default function Activities() {
   const [activities, setActivities] = useState([]);
   const [status, setStatus] = useState({ loading: true, error: '' });
 
   useEffect(() => {
-    fetchCollection('activities')
+    fetchCollection(activitiesEndpoint)
       .then(setActivities)
       .catch((error) => setStatus({ loading: false, error: error.message }))
       .finally(() => setStatus((current) => ({ ...current, loading: false })));

@@ -21,7 +21,8 @@ function unwrapCollection(payload) {
 }
 
 export async function fetchCollection(endpoint) {
-  const response = await fetch(`${API_BASE_URL}/api/${endpoint}/`);
+  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}/api/${endpoint}/`;
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Unable to load ${endpoint} (${response.status})`);
   }
